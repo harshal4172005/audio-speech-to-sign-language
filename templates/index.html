@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Sign Language Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-sign-language me-2"></i>Sign Language Converter
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-info-circle me-1"></i> About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-question-circle me-1"></i> Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt me-1"></i> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-5 fw-bold">Audio Speech to Sign Language Converter</h1>
+                    <p class="lead">Bridging communication gaps with technology</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <p class="mb-0">Welcome, <strong>{{ session.get('username', 'User') }}</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container py-4">
+        <div class="row">
+            <!-- Speech Input Section -->
+            <div class="col-lg-6 mb-4">
+                <section class="speech-input">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-microphone text-primary me-2 fs-4"></i>
+                        <h2 class="m-0">Input Speech</h2>
+                    </div>
+                    <div class="text-center my-4">
+                        <button id="start-btn" class="btn btn-success mic-btn">
+                            <i class="fas fa-microphone me-2"></i> Start Listening
+                        </button>
+                        <button id="stop-btn" class="btn btn-danger mic-btn">
+                            <i class="fas fa-stop-circle me-2"></i> Stop Listening
+                        </button>
+                    </div>
+                    
+                    <div class="file-upload-container">
+                        <p class="text-center mb-3"><i class="fas fa-upload me-2"></i> Or upload an audio file</p>
+                        <input type="file" id="audio-upload" accept="audio/*" class="form-control">
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sign Language Output Section -->
+            <div class="col-lg-6 mb-4">
+                <section class="sign-output">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-sign-language text-primary me-2 fs-4"></i>
+                        <h2 class="m-0">Sign Language Output</h2>
+                    </div>
+                    <div id="sign-video" class="border rounded p-4 mb-3">
+                        <p class="text-muted"><i class="fas fa-info-circle me-2"></i> Sign language animation will appear here</p>
+                    </div>
+                    <div class="transcription-box">
+                        <strong><i class="fas fa-file-alt me-2"></i> Transcription:</strong>
+                        <p id="transcription" class="mb-0 mt-2">Text transcription will appear here</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Language Selection -->
+            <div class="col-lg-6 mb-4">
+                <section class="options-section">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-language text-primary me-2 fs-4"></i>
+                        <h3 class="m-0">Select Language</h3>
+                    </div>
+                    <div class="mx-auto">
+                        <select id="language-select" class="form-select">
+                            <option value="asl">American Sign Language (ASL)</option>
+                            <option value="bsl">British Sign Language (BSL)</option>
+                            <option value="is">Indian Sign Language (IS)</option>
+                        </select>
+                    </div>
+                    <div class="mt-4">
+                        <p><i class="fas fa-info-circle text-primary me-2"></i> The language selection determines which sign language system will be used for translation.</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="col-lg-6 mb-4">
+                <section class="feedback-section">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-comment-alt text-primary me-2 fs-4"></i>
+                        <h3 class="m-0">Feedback</h3>
+                    </div>
+                    <textarea id="feedback" class="form-control mb-3" rows="4" placeholder="Share your experience or suggestions..."></textarea>
+                    <button id="submit-feedback" class="btn btn-primary">
+                        <i class="fas fa-paper-plane me-2"></i> Submit Feedback
+                    </button>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-sign-language me-2"></i> Speech to Sign Language Converter</h5>
+                    <p class="mb-0">Breaking barriers in communication technology</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">&copy; 2024 All Rights Reserved.</p>
+                    <div class="mt-2">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

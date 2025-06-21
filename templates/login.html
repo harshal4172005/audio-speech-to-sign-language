@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Speech to Sign Language Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-4">
+        <h1>Audio Speech to Sign Language Converter</h1>
+        <p class="mb-0">Breaking communication barriers with technology</p>
+    </header>
+
+    <main class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <h2 class="card-title text-center mb-4">Welcome Back</h2>
+                        
+                        <!-- Registration Success Alert -->
+                        {% if request.args.get('registered') %}
+                        <div class="alert alert-success mb-4" role="alert">
+                            <i class="fas fa-check-circle me-2"></i> Registration successful! Please login with your credentials.
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Error Message -->
+                        {% if error %}
+                        <div class="alert alert-danger mb-4" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i> {{ error }}
+                        </div>
+                        {% endif %}
+                        
+                        <form id="login-form" class="auth-form" method="POST" action="/login">
+                            <div class="mb-4">
+                                <label for="email" class="form-label fw-bold">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="form-label fw-bold">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                                </div>
+                            </div>
+                            <div class="text-end mb-3">
+                                <a href="/forgot-password" class="text-primary">Forgot Password?</a>
+                            </div>                            
+                            <div class="mb-4 form-check">
+                                <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
+                                <label class="form-check-label" for="remember-me">Remember me</label>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary py-2 auth-btn">
+                                    <i class="fas fa-sign-in-alt me-2"></i> Login
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="text-center mt-4">
+                            <p class="mb-0">Don't have an account? <a href="/register" class="text-primary fw-bold">Register here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2024 Speech to Sign Language Converter. All Rights Reserved.</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} mt-3" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}

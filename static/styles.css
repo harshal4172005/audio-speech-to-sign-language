@@ -1,0 +1,226 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background: linear-gradient(135deg, #0062cc, #007bff);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3 {
+    margin: 0.5em 0;
+}
+
+footer {
+    background: #343a40;
+    color: white;
+    margin-top: auto;
+}
+
+/* Auth Forms */
+.auth-container {
+    max-width: 500px;
+    width: 100%;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.auth-form input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.auth-btn:hover {
+    background-color: #0056b3;
+}
+
+.auth-links {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+/* Main App Styles */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.navbar-custom {
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Speech Recognition Section */
+.speech-input {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.mic-btn {
+    padding: 12px 24px;
+    margin: 0 10px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.mic-btn:hover {
+    transform: translateY(-2px);
+}
+
+.file-upload-container {
+    margin-top: 20px;
+    border: 2px dashed #dee2e6;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Sign Language Output */
+.sign-output {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+#sign-video {
+    min-height: 400px;  /* Increased from 300px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #f8f9fa;
+}
+
+.sign-image {
+    max-width: 500px;  /* Increased from 150px */
+    max-height: 500px; /* Increased from 150px */
+    object-fit: contain;
+}
+
+.transcription-box {
+    margin-top: 1rem;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+}
+
+/* Options and Feedback Section */
+.options-section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+#language-select {
+    max-width: 400px;
+}
+
+.feedback-section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+#feedback {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .auth-container {
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+    
+    .speech-input, .sign-output, .options-section, .feedback-section {
+        padding: 1.5rem;
+    }
+    
+    .mic-btn {
+        padding: 10px 20px;
+        margin: 5px;
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+/* Sign Word Display */
+.sign-word-container {
+    background-color: #f0f8ff;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 8px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.sign-word-container:hover {
+    transform: scale(1.05);
+}
+
+.sign-label {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #495057;
+    font-weight: 500;
+}

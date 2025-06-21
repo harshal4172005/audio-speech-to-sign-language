@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Speech to Sign Language Converter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-4">
+        <h1>Audio Speech to Sign Language Converter</h1>
+        <p class="mb-0">Join our community today</p>
+    </header>
+
+    <main class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <h2 class="card-title text-center mb-4">Create Account</h2>
+                        
+                        <!-- Error Message -->
+                        {% if error %}
+                        <div class="alert alert-danger mb-4" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i> {{ error }}
+                        </div>
+                        {% endif %}
+                        
+                        <form id="register-form" class="auth-form" method="POST" action="/register">
+                            <div class="mb-3">
+                                <label for="username" class="form-label fw-bold">Username</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" id="username" name="username" class="form-control" placeholder="Choose a username" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-bold">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label fw-bold">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Create a password" required minlength="6">
+                                </div>
+                                <div class="form-text">Password must be at least 6 characters long</div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="confirm-password" class="form-label fw-bold">Confirm Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" id="confirm-password" name="confirm-password" class="form-control" placeholder="Confirm your password" required>
+                                </div>
+                            </div>
+                            <div class="mb-4 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                                <label class="form-check-label" for="terms">I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a></label>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary py-2 auth-btn">
+                                    <i class="fas fa-user-plus me-2"></i> Register
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div class="text-center mt-4">
+                            <p class="mb-0">Already have an account? <a href="/login" class="text-primary fw-bold">Login here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">&copy; 2024 Speech to Sign Language Converter. All Rights Reserved.</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form validation for password matching
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                event.preventDefault();
+                alert('Passwords do not match!');
+            }
+        });
+    </script>
+</body>
+</html>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} mt-3" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
