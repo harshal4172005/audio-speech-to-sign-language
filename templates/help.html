@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Help | Sign Language Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Help & FAQs</h1>
+
+        <h3>1. How does the converter work?</h3>
+        <p>
+            It listens to your voice or processes an uploaded audio file, converts it into text, and then displays corresponding sign language animations.
+        </p>
+
+        <h3>2. How to use it?</h3>
+        <ul>
+            <li>Click on <strong>Start Listening</strong> and speak into your mic.</li>
+            <li>Or upload a supported audio file (MP3, WAV).</li>
+            <li>The system will show corresponding sign language gestures.</li>
+        </ul>
+
+        <h3>3. What if animation is not appearing?</h3>
+        <p>
+            Please check your mic access, ensure you're using a supported browser (Chrome/Edge), and verify audio clarity.
+        </p>
+
+        <h3>4. Can I give feedback?</h3>
+        <p>
+            Yes! You can send your suggestions to <strong>zeelgandhi2564@gmail.com</strong>.
+        </p>
+
+        <a href="{{ url_for('index') }}">← Back to Home</a>
+    </div>
+</body>
+</html>

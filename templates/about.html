@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About | Sign Language Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>About This Project</h1>
+        <p>
+            <strong>Audio Speech to Sign Language Converter</strong> is a web application built to help bridge communication gaps between hearing and non-hearing individuals. It automatically converts spoken audio into sign language animations, promoting inclusivity and accessibility.
+        </p>
+        <h2>Objectives</h2>
+        <ul>
+            <li>Assist individuals who are deaf or hard of hearing.</li>
+            <li>Support inclusive communication with assistive technology.</li>
+            <li>Encourage awareness of sign language in daily interactions.</li>
+        </ul>
+        <h2>Technologies Used</h2>
+        <ul>
+            <li><strong>Flask (Python)</strong> – for backend routing and server logic</li>
+            <li><strong>HTML, CSS, JavaScript</strong> – for interactive frontend design</li>
+            <li><strong>Speech Recognition API</strong> – for converting voice to text</li>
+            <li><strong>Custom Sign Language GIFs</strong> – for visual animation</li>
+        </ul>
+        <h2>Developer</h2>
+        <p>
+            Developed by <strong>Harshal Parekh</strong>, a passionate Computer Engineering student from CKPCET under Gujarat Technological University. This project reflects a vision of inclusive and accessible technology.
+        </p>
+        <a href="{{ url_for('index') }}">← Back to Home</a>
+    </div>
+</body>
+</html>

@@ -514,6 +514,14 @@ def auth():
         return jsonify({"success": True, "user": {"name": "Demo User"}})
     return jsonify({"success": False, "error": "Invalid credentials"})
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/help')
+def help():
+    return render_template('help.html')
+
 if __name__ == '__main__':
     # Initialize the database
     init_db()
