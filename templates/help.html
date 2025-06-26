@@ -1,37 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Help | Sign Language Converter</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Help & FAQs</h1>
+{% extends "base.html" %}
+{% block title %}Help | Sign Language Converter{% endblock %}
 
-        <h3>1. How does the converter work?</h3>
-        <p>
-            It listens to your voice or processes an uploaded audio file, converts it into text, and then displays corresponding sign language animations.
-        </p>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card shadow-sm border-0 rounded">
+            <div class="card-body p-5">
+                <h2 class="mb-4 text-primary"><i class="fas fa-question-circle me-2"></i>Help & FAQs</h2>
 
-        <h3>2. How to use it?</h3>
-        <ul>
-            <li>Click on <strong>Start Listening</strong> and speak into your mic.</li>
-            <li>Or upload a supported audio file (MP3, WAV).</li>
-            <li>The system will show corresponding sign language gestures.</li>
-        </ul>
+                <div class="mb-4">
+                    <h5><i class="fas fa-cogs me-2 text-info"></i>1. How does the converter work?</h5>
+                    <p>It listens to your voice or processes uploaded audio, converts it into text, then displays animated sign language for the words.</p>
+                </div>
 
-        <h3>3. What if animation is not appearing?</h3>
-        <p>
-            Please check your mic access, ensure you're using a supported browser (Chrome/Edge), and verify audio clarity.
-        </p>
+                <div class="mb-4">
+                    <h5><i class="fas fa-microphone-alt me-2 text-info"></i>2. How to use it?</h5>
+                    <ul>
+                        <li>Click <strong>Start Listening</strong> and speak clearly.</li>
+                        <li>Or upload an audio file (.mp3/.wav).</li>
+                        <li>Sign language gestures will appear instantly.</li>
+                    </ul>
+                </div>
 
-        <h3>4. Can I give feedback?</h3>
-        <p>
-            Yes! You can send your suggestions to <strong>zeelgandhi2564@gmail.com</strong>.
-        </p>
+                <div class="mb-4">
+                    <h5><i class="fas fa-video-slash me-2 text-info"></i>3. What if animations don't show?</h5>
+                    <p>
+                        Ensure your microphone is allowed, use Chrome/Edge browser, and verify that you're speaking clearly into a working mic.
+                    </p>
+                </div>
 
-        <a href="{{ url_for('index') }}">← Back to Home</a>
+                <div class="mb-4">
+                    <h5><i class="fas fa-comment-dots me-2 text-info"></i>4. Can I share feedback?</h5>
+                    <p>Yes! Please share your suggestions at <strong>SLCconverter01@gmail.com</strong>.</p>
+                </div>
+
+                <div class="text-end mt-4">
+                    <a href="{{ url_for('home') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
