@@ -1,1 +1,10 @@
-__pycache__/\n*.pyc\n.env\n.vscode/
+__pycache__/
+*.pyc
+.env
+.vscode/
+.venv/
+*.db
+*.log
+*.zip
+*.mp3
+*.wav
