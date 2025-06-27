@@ -7,6 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
     <header class="bg-primary text-white text-center py-4">
@@ -17,17 +24,20 @@
     <main class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card shadow">
+                <div class="card glass-card">
                     <div class="card-body p-5">
                         <h2 class="card-title text-center mb-4">Create Account</h2>
                         
-                        <!-- Error Message -->
-                        {% if error %}
-                        <div class="alert alert-danger mb-4" role="alert">
-                            <i class="fas fa-exclamation-circle me-2"></i> {{ error }}
-                        </div>
-                        {% endif %}
-                        
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }} mb-3" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+
                         <form id="register-form" class="auth-form" method="POST" action="/register">
                             <div class="mb-3">
                                 <label for="username" class="form-label fw-bold">Username</label>
@@ -36,6 +46,7 @@
                                     <input type="text" id="username" name="username" class="form-control" placeholder="Choose a username" required>
                                 </div>
                             </div>
+
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-bold">Email Address</label>
                                 <div class="input-group">
@@ -43,6 +54,7 @@
                                     <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
                                 </div>
                             </div>
+
                             <div class="mb-3">
                                 <label for="password" class="form-label fw-bold">Password</label>
                                 <div class="input-group">
@@ -50,7 +62,10 @@
                                     <input type="password" id="password" name="password" class="form-control" placeholder="Create a password" required minlength="6">
                                 </div>
                                 <div class="form-text">Password must be at least 6 characters long</div>
+                                <div id="strengthBar" style="height: 10px; background-color: lightgray; width: 100%;" class="my-2"></div>
+                                <p id="strengthText" class="mt-1 mb-3"></p>
                             </div>
+
                             <div class="mb-4">
                                 <label for="confirm-password" class="form-label fw-bold">Confirm Password</label>
                                 <div class="input-group">
@@ -58,17 +73,25 @@
                                     <input type="password" id="confirm-password" name="confirm-password" class="form-control" placeholder="Confirm your password" required>
                                 </div>
                             </div>
-                            <div class="mb-4 form-check">
-                                <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                                <label class="form-check-label" for="terms">I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a></label>
+
+                            <div class="mb-4">
+                                <label class="d-flex align-items-center" style="font-size: 0.9rem;">
+                                    <input type="checkbox" id="terms" name="terms" required style="width: 16px; height: 16px; margin-right: 8px;">
+                                    I agree to the <a href="#" class="text-primary ms-1">Terms of Service</a> and <a href="#" class="text-primary ms-1">Privacy Policy</a>
+                                </label>
                             </div>
+
+                            <div class="mb-4">
+                                <div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
+                            </div>
+
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary py-2 auth-btn">
                                     <i class="fas fa-user-plus me-2"></i> Register
                                 </button>
                             </div>
                         </form>
-                        
+
                         <div class="text-center mt-4">
                             <p class="mb-0">Already have an account? <a href="/login" class="text-primary fw-bold">Login here</a></p>
                         </div>
@@ -81,28 +104,56 @@
     <footer class="bg-dark text-white text-center py-3 mt-5">
         <p class="mb-0">&copy; 2024 Speech to Sign Language Converter. All Rights Reserved.</p>
     </footer>
-    
+
+    <!-- JS dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Vanta.js animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
     <script>
-        // Form validation for password matching
+        VANTA.NET({
+            el: "body",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x0d6efd,
+            backgroundColor: 0xf8f9fa
+        })
+    </script>
+
+    <!-- Password match check -->
+    <script>
         document.getElementById('register-form').addEventListener('submit', function(event) {
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirm-password').value;
-            
             if (password !== confirmPassword) {
                 event.preventDefault();
                 alert('Passwords do not match!');
             }
         });
+
+        // Password strength checker
+        const passwordField = document.getElementById("password");
+        const bar = document.getElementById("strengthBar");
+        const text = document.getElementById("strengthText");
+
+        passwordField.addEventListener("input", () => {
+            const result = zxcvbn(passwordField.value);
+            const score = result.score;
+            const colors = ["#dc3545", "#fd7e14", "#ffc107", "#198754", "#0d6efd"];
+            const labels = ["Very Weak", "Weak", "Medium", "Strong", "Very Strong"];
+
+            bar.style.width = `${(score + 1) * 20}%`;
+            bar.style.backgroundColor = colors[score];
+            text.textContent = labels[score];
+        });
     </script>
 </body>
 </html>
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }} mt-3" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}

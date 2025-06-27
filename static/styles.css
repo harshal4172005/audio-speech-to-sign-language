@@ -19,10 +19,25 @@ h1, h2, h3 {
     margin: 0.5em 0;
 }
 
+/* Footer Fix */
 footer {
     background: #343a40;
     color: white;
     margin-top: auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* General Card Styling for About & Help Pages */
+.card, .styled-box {
+    background: #ffffff !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Remove extra line from list-group items */
+.list-group-item {
+    border: none !important;
 }
 
 /* Auth Forms */
@@ -134,7 +149,7 @@ footer {
 }
 
 #sign-video {
-    min-height: 400px;  /* Increased from 300px */
+    min-height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -143,8 +158,8 @@ footer {
 }
 
 .sign-image {
-    max-width: 500px;  /* Increased from 150px */
-    max-height: 500px; /* Increased from 150px */
+    max-width: 500px;
+    max-height: 500px;
     object-fit: contain;
 }
 
@@ -188,11 +203,11 @@ footer {
         max-width: 90%;
         padding: 1.5rem;
     }
-    
+
     .speech-input, .sign-output, .options-section, .feedback-section {
         padding: 1.5rem;
     }
-    
+
     .mic-btn {
         padding: 10px 20px;
         margin: 5px;
