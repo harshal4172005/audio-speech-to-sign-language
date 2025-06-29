@@ -15,6 +15,7 @@ import random
 import string
 import secrets
 from dotenv import load_dotenv
+import requests
 load_dotenv()
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -281,28 +282,25 @@ sign_language_dict = {
 
 # Function to find sign language representation for text
 def find_sign_for_text(text, language="asl"):
-    # Check if language dictionary exists
     if language not in sign_language_dict:
-        language = "asl"  # Default to ASL if language not available
-    
+        language = "asl"  # Fallback to ASL
+
     lang_dict = sign_language_dict[language]
-    
-    # First check if the whole text is in the dictionary (for phrases)
     text_upper = text.upper()
+
+    # Step 1: Check for full phrase/sentence match
     if text_upper in lang_dict:
         return {"found": True, "path": lang_dict[text_upper], "isFullMatch": True}
-    
-    # If not a full match, return individual word or letter info
-    if len(text) == 1 and text.isalpha():
-        # It's a single letter
-        if text_upper in lang_dict:
-            return {"found": True, "path": lang_dict[text_upper], "isFullMatch": False}
-    else:
-        # It's a word
-        if text_upper in lang_dict:
-            return {"found": True, "path": lang_dict[text_upper], "isFullMatch": False}
-    
-    # If we get here, no match found
+
+    # Step 2: Check for word match
+    if text_upper in lang_dict:
+        return {"found": True, "path": lang_dict[text_upper], "isFullMatch": False}
+
+    # Step 3: Check if it's a single letter and exists
+    if len(text_upper) == 1 and text_upper.isalpha() and text_upper in lang_dict:
+        return {"found": True, "path": lang_dict[text_upper], "isFullMatch": False}
+
+    # Not found
     return {"found": False}
 
 # Home route - redirects to login if not authenticated

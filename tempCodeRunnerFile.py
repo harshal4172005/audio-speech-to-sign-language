@@ -15,6 +15,7 @@ import random
 import string
 import secrets
 from dotenv import load_dotenv
+import requests
 load_dotenv()
 
 app = Flask(__name__, static_folder='static', template_folder='templates')

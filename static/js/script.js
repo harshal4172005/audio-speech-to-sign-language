@@ -5,6 +5,8 @@ const transcription = document.getElementById('transcription');
 const signVideo = document.getElementById('sign-video');
 const languageSelect = document.getElementById('language-select');
 
+let lastProcessed = "";               // remember the last final text
+let restartNeeded = false;            // used when Chrome auto‑stops
 let recognition;
 let isListening = false;
 
@@ -14,18 +16,34 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     recognition.continuous = true;
     recognition.interimResults = true;
 
-    recognition.onresult = (event) => {
-        const transcript = Array.from(event.results)
-            .map(result => result[0])
-            .map(result => result.transcript)
-            .join('');
+// ─── Speech‑to‑Text callback ─────────────────────────────────────────────
+recognition.onresult = (event) => {
+    let interim = "";
 
-        transcription.textContent = transcript;
+    // Loop through new results only
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+        const res = event.results[i];
 
-        if (event.results[0].isFinal) {
-            processTranscript(transcript);
+        if (!res.isFinal) {
+            interim += res[0].transcript;           // live caption
+        } else {
+            const finalText = res[0].transcript.trim();
+
+            // Avoid re‑processing the same text twice
+            if (finalText && finalText !== lastProcessed) {
+                transcription.textContent = finalText;
+                processTranscript(finalText);
+                lastProcessed = finalText;
+            }
+
+            // Show “Listening…” after a short blink
+            setTimeout(() => (transcription.textContent = "Listening…"), 400);
         }
-    };
+    }
+
+    // Show interim words while speaking
+    if (interim) transcription.textContent = interim;
+};
 
     recognition.onerror = (event) => {
         console.error('Speech recognition error', event.error);
@@ -37,6 +55,14 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     stopBtn.disabled = true;
     transcription.textContent = "Speech recognition not supported in this browser. Please upload an audio file instead.";
 }
+
+recognition.onend = () => {
+    /* Chrome stops the stream after a few seconds of silence.
+       If the user hasn't clicked “Stop Listening”, start it again. */
+    if (isListening) {
+        recognition.start();
+    }
+};
 
 // Start listening
 startBtn.addEventListener('click', () => {
