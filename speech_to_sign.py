@@ -261,8 +261,15 @@ sign_language_dict = {
         # Sentences
         "GOOD MORNING": "static/Sentences/good morning.gif",
         "GOOD NIGHT": "static/Sentences/good night.gif",
-        "HOW ARE YOU": "static/Sentences/how are you doing.gif",
         "WHAT'S UP": "static/Sentences/what_s up.gif",
+        "good afternoon": "static/Sentences/good afternoon.gif",
+        "good evening": "static/Sentences/good evening.gif",
+        "how are you doing":"static/Sentences/how are you doing.gif",
+        "i am fine":"static/Sentences/i am fine.gif",
+        "i don_t understand":"static/Sentences/i don_t understand.gif",
+        "i_ll help you":"static/Sentences/i_ll help you.gif",
+        "thank you very much":"static/Sentences/thank you very much.gif",
+        "what are you doing":"static/Sentences/what are you doing.gif",
     },
     # BSL Dictionary - placeholder, replace with actual BSL images
     "bsl": {
